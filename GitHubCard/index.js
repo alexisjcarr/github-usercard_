@@ -125,7 +125,10 @@ function githubCardCreator(dataObj) {
   githubFollowers.textContent = `Followers: ${followers}`;
   githubFollowing.textContent = `Following: ${following}`;
   userBio.textContent = bio;
-  new GitHubCalendar(calendarDiv, login);
+  new GitHubCalendar(calendarDiv, login, {
+    global_stats: true,
+    responsive: true
+  });
 
   return card;
 }
