@@ -8,7 +8,7 @@ const placeholder = document.querySelector(".cards");
 const userInfo = axios
   .get("https://api.github.com/users/alexisjcarr")
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     placeholder.appendChild(githubCardCreator(res.data));
   })
   .catch(err => {
@@ -39,7 +39,7 @@ const userInfo = axios
 const followersArray = axios
   .get("https://api.github.com/users/alexisjcarr/followers")
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     res.data.forEach(follower =>
       axios
         .get(`https://api.github.com/users/${follower.login}`)
@@ -94,6 +94,8 @@ function githubCardCreator(dataObj) {
   const githubFollowers = document.createElement("p");
   const githubFollowing = document.createElement("p");
   const userBio = document.createElement("p");
+  const calendarDiv = document.createElement("div");
+  const break_ = document.createElement("br");
 
   card.appendChild(avatar);
   card.appendChild(card_info);
@@ -105,11 +107,14 @@ function githubCardCreator(dataObj) {
   card_info.appendChild(githubFollowers);
   card_info.appendChild(githubFollowing);
   card_info.appendChild(userBio);
+  card_info.appendChild(break_);
+  card_info.appendChild(calendarDiv);
 
   card.classList.add("card");
   card_info.classList.add("card-info");
   usersName.classList.add("name");
   username.classList.add("username");
+  calendarDiv.classList.add("calendar");
 
   avatar.setAttribute("src", avatar_url);
   usersName.textContent = name;
@@ -120,6 +125,7 @@ function githubCardCreator(dataObj) {
   githubFollowers.textContent = `Followers: ${followers}`;
   githubFollowing.textContent = `Following: ${following}`;
   userBio.textContent = bio;
+  new GitHubCalendar(calendarDiv, login);
 
   return card;
 }
@@ -131,20 +137,3 @@ function githubCardCreator(dataObj) {
   luishrd
   bigknell
 */
-
-{
-  /* <div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div> */
-}
